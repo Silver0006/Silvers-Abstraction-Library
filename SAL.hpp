@@ -4,8 +4,9 @@
 #include <string>
 
 namespace sal{
-    
-    std::string getConfigPath(); 
+   
+    std::string getConfigPath(); /// Returns path to OS directory for application config
+    std::string getConfigPath(std::string);
 
 }
 
