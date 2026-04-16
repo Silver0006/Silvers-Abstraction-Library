@@ -39,4 +39,10 @@ namespace sal {
         return configPath.string();
     }
 
+    std::string colorizeString(std::string str, std::string colorId) {
+        #ifdef __linux__
+            return "\e[" + colorId + str + "\e[0m";
+        #endif
+    }
+
 }
