@@ -12,7 +12,9 @@ namespace sal {
             configPath = std::getenv("XDG_CONFIG_HOME") ? std::getenv("XDG_CONFIG_HOME") : "";
             if (configPath.empty()) {
                 #ifdef DEBUG
-                    std::cerr << "\e[38;5;11m[SAL]\e[0m \e[38;5;14mgetConfigPath()\e[0m - XDG_CONFIG_HOME not found" << std::endl;
+                    std::cerr << sal::colorizeString("[SAL]", "38;5;11") << " " 
+                              << sal::colorizeString("getConfigPath()", "38;5;14") 
+                              << " - XDG_CONFIG_HOME not found" << std::endl;
                 #endif
                 configPath = std::getenv("HOME") ? std::getenv("HOME") : "";
                 configPath /= ".config";
@@ -28,7 +30,9 @@ namespace sal {
             configPath = std::getenv("XDG_CONFIG_HOME") ? std::getenv("XDG_CONFIG_HOME") : "";
             if (configPath.empty()) {
                 #ifdef DEBUG
-                    std::cerr << "\e[38;5;11m[SAL]\e[0m \e[38;5;14mgetConfigPath()\e[0m - XDG_CONFIG_HOME not found" << std::endl;
+                    std::cerr << sal::colorizeString("[SAL]", "38;5;11") << " " 
+                              << sal::colorizeString("getConfigPath()", "38;5;14") 
+                              << " - XDG_CONFIG_HOME not found" << std::endl;
                 #endif
                 configPath = std::getenv("HOME") ? std::getenv("HOME") : "";
                 configPath /= ".config";
@@ -41,7 +45,7 @@ namespace sal {
 
     std::string colorizeString(std::string str, std::string colorId) {
         #ifdef __linux__
-            return "\e[" + colorId + str + "\e[0m";
+            return "\e[" + colorId + "m" + str + "\e[0m";
         #endif
     }
 
