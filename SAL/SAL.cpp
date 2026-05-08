@@ -1,3 +1,9 @@
+#ifdef __unix__
+    #include <sys/ioctl.h>
+    #include <termios.h>
+    #include <unistd.h>
+#endif
+
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
@@ -47,6 +53,18 @@ namespace sal {
         #ifdef __linux__
             return "\e[" + colorId + "m" + str + "\e[0m";
         #endif
+    }
+
+    char getch() {
+        termios rollback, tmp;
+        char c;
+        tcgetattr(0, &rollback);
+        tmp = rollback;
+        tmp.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(0, TCSANOW, &tmp);
+        read(0, &c, 1);
+        tcsetattr(0, TCSANOW, &rollback);
+        return c;
     }
 
 }
