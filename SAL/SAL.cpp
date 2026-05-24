@@ -1,3 +1,8 @@
+#ifdef __APPLE__
+    #include <sys/ioctl.h>
+    #include <termios.h>
+    #include <unistd.h>
+#endif
 #ifdef __unix__
     #include <sys/ioctl.h>
     #include <termios.h>
@@ -11,10 +16,9 @@
 #include "SAL.hpp"
 
 namespace sal {
-
-    std::string getConfigPath(){
+    std::string getConfigPath() {
         std::filesystem::path configPath;
-        #ifdef __linux__
+        #if defined(__unix__) || defined(__APPLE__)
             configPath = std::getenv("XDG_CONFIG_HOME") ? std::getenv("XDG_CONFIG_HOME") : "";
             if (configPath.empty()) {
                 #ifdef DEBUG
@@ -30,9 +34,9 @@ namespace sal {
         return configPath.string();
     }
 
-    std::string getConfigPath(std::string path){
+    std::string getConfigPath(std::string path) {
         std::filesystem::path configPath;
-        #ifdef __linux__
+        #if defined(__unix__) || defined(__APPLE__)
             configPath = std::getenv("XDG_CONFIG_HOME") ? std::getenv("XDG_CONFIG_HOME") : "";
             if (configPath.empty()) {
                 #ifdef DEBUG
@@ -50,9 +54,10 @@ namespace sal {
     }
 
     std::string colorizeString(std::string str, std::string colorId) {
-        #ifdef __linux__
+        #if defined(__unix__) || defined(__APPLE__)
             return "\e[" + colorId + "m" + str + "\e[0m";
         #endif
+	return str;
     }
 
     char getch() {
