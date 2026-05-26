@@ -5,8 +5,10 @@
 
 namespace sal{
    
-    std::string getConfigPath(); /// Returns path to OS directory for application config
-    std::string getConfigPath(std::string);
+    /// Returns path to OS default directory for application config
+    /// bool == create if not exist
+    /// string gets tagged on to the config path
+    std::string getConfigPath(const std::string = "", const bool = false);
 
     std::string colorizeString(std::string, std::string); /// Applies ansi code to std::string "\e[" + colorId + "m" + str + "\e[0m"
 
